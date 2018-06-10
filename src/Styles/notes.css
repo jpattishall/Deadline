@@ -1,0 +1,55 @@
+.story-notes {
+    position: relative;
+    overflow: hidden;
+}
+
+.story-notes-container {
+    background: -webkit-linear-gradient(top, rgb(164, 179, 114) 0%, rgb(253, 241, 161) 8%) 0 4px;
+    background-size: 100% 1.5rem;
+    padding: 10px;
+    padding-left: 28px;
+    position: absolute;
+    overflow: none;    
+    overflow-y: scroll;
+    background-repeat: repeat;
+    background-attachment: local;
+    top: 52px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.story-notes:before {
+    content: '';
+    position: absolute;
+    width: 3px;
+    top: 40px;
+    left: 16px;
+    bottom: 0;
+    border: 1px solid;
+    border-color: transparent rgb(228, 175, 111);
+    z-index: 1;
+}
+
+.story-notes-header {
+    font-family: cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background-color: rgb(35, 31, 32);
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    color: rgb(255,255,255,0.8);
+    box-shadow: black 0px 0px 6px 1px;
+}
+
+.story-notes-note {
+    font-size: 0.8rem;
+    font-family: 'Coming Soon', cursive;
+    text-shadow: black 0 0;
+    padding-bottom: 1.6rem;
+    line-height: 1.8;
+}

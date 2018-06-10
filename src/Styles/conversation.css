@@ -1,0 +1,18 @@
+.story-conversation {
+    background-color: black;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 20px;
+}
+
+.story-conversation > div:before {
+    content: '> ';
+    line-height: 1.6;
+}
+
+.story-conversation-message--player {
+    color: skyblue;
+}
+
+.story-conversation-message--contact {
+    color: #41FF00;
+}

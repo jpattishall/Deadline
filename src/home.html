@@ -13,10 +13,12 @@
     <script src="Scripts/index.js"></script>
     <script src="Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="Scripts/Sources/Contacts.js"></script>
+    <script src="Scripts/Managers/UI/ContactPanelManager.js"></script>
     <script>
     $(document).ready(function(){
+       var contactPanelManager = new ContactPanelManager("rolodex");
+       contactPanelManager.loadContacts(Contacts);
        
-       console.log(Contacts); 
     });
     </script>
 </head>

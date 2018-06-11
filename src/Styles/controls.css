@@ -3,11 +3,11 @@
     display: flex;
     height: 150px;
     padding: 0 20px;
-    margin-bottom: 100px; /* This pushes existing app down */
 }
 
 .story-controls-container {
     background-color: white;
     flex: 1;
     margin-bottom: 10px;
+    z-index: 1;
 }

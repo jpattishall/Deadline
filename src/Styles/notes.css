@@ -1,15 +1,15 @@
 .story-notes {
     position: relative;
     overflow: hidden;
+    border-radius: 10px 10px 0 0;
 }
 
 .story-notes-container {
     background: -webkit-linear-gradient(top, rgb(164, 179, 114) 0%, rgb(253, 241, 161) 8%) 0 4px;
     background-size: 100% 1.5rem;
-    padding: 10px;
-    padding-left: 28px;
+    padding: 10px 10px 10px 28px;
     position: absolute;
-    overflow: none;    
+    overflow: none;
     overflow-y: scroll;
     background-repeat: repeat;
     background-attachment: local;

@@ -13,6 +13,7 @@
     <script src="Scripts/index.js"></script>
     <script src="Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="Scripts/Sources/Contacts.js"></script>
+    <script type="text/javascript" src="Scripts/Objects/Terminal.js"></script>
     <script>
     $(document).ready(function(){
        
@@ -38,19 +39,52 @@
                     <div class="story-notes-note">Called Lyle Skyton at National Weather Service</div>
                 </div>
             </div>
-            <div class="story-conversation">
-                <div class="story-conversation-message--contact">Hello?</div>
-                <div class="story-conversation-message--player">How dark is the sky overhead?</div>
-                <div class="story-conversation-message--contact">I don't know. We've gone into the basement, the building has been evacuated...</div>
+            <div class="story-terminal">
+                <div class="story-conversation"></div>
+                <div class="story-terminal-glow"></div>
+                <div class="story-terminal-scanlines"></div>
             </div>
             <div id="rolodex" class="story-contacts">Rolodex</div>
         </div>
         <div class="story-controls">
-            <div class="story-controls-container">
-                Controls
+            <div class="story-controls-container" style="display: flex; align-items: center; justify-content: center">
+                    <button id="clear-terminal" style="height: 50px; border-radius: 8px;">Clear Terminal</button>
+                    <button id="prompt-log-terminal" style="height: 50px; border-radius: 8px; margin: 0 16px;">Send message to Terminal</button>
+                    <button id="toggle-terminal-animation" style="height: 50px; border-radius: 8px">Toggle Terminal Animations</button>
             </div>
         </div>
     </div>
-</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', e => {
+            {
+                let initConvo = [
+                    {message: 'Hello?', type: 'contact', typingSpeed: 1000/5},
+                    {message: 'How dark is the sky overhead?', type: 'player', typingSpeed: 1000/30},
+                    {message: 'I don\'t know. We\'ve gone into the basement, the building has been evacuated...', type: 'contact', typingSpeed: 1000/15, initialDelay: 200},
+                    {message: 'ERR: Call Disconnected! Ref #08419495021', type: 'system', initialDelay: 500, typingSpeed: 1000/80}
+                ];
 
+                let terminal = new Terminal({element: document.querySelector('.story-conversation')});
+
+                initConvo.forEach(msg => {
+                    terminal.write(msg);
+                });
+
+                // Temporary for Debugging:
+                document.querySelector('#clear-terminal').addEventListener('click', e => {
+                    terminal.clear();
+                });
+                document.querySelector('#prompt-log-terminal').addEventListener('click', e => {
+                    var prompt = window.prompt('Enter message to send to Terminal');
+                    terminal.write({message: prompt, type: 'player', typingSpeed: 1000/30});
+                });
+                document.querySelector('#toggle-terminal-animation').addEventListener('click', e => {
+                    ['.story-terminal-glow', '.story-terminal-scanlines', '.story-conversation'].forEach(selector => {
+                        document.querySelector(selector).classList.toggle('story-conversation--disable-animation');
+                    })
+                });
+            }
+        })
+    </script>
+</body>
 </html>

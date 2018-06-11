@@ -25,16 +25,18 @@ body{
     padding: 12px;
 }
 
-.story div {
+.story > div {
     order: 0;
     align-self: auto;
     flex: 1 1 auto;
+    width: 65vw;
 }
 
 .story > div:nth-child(2n + 1) {
     flex: 3 1 auto;
     margin: 0 10px;
     width: 30vw;
+    z-index: 1;
 }
 
 .main{

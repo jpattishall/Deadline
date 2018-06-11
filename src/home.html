@@ -10,14 +10,16 @@
     <link rel="stylesheet" href="Styles/conversation.css">
     <link rel="stylesheet" href="Styles/contacts.css">
     <link rel="stylesheet" href="Styles/controls.css">
+    <link rel="stylesheet" href="Scripts/Plugins/jquery-ui/jquery-ui.min.css">
     <script src="Scripts/index.js"></script>
     <script src="Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="Scripts/Sources/Contacts.js"></script>
     <script src="Scripts/Managers/UI/ContactPanelManager.js"></script>
     <script type="text/javascript" src="Scripts/Objects/Terminal.js"></script>
+    <script src="Scripts/Plugins/jquery-ui/jquery-ui.min.js"></script>
     <script>
     $(document).ready(function(){
-       var contactPanelManager = new ContactPanelManager("rolodex");
+       var contactPanelManager = new ContactPanelManager("panelContent");
        contactPanelManager.loadContacts(Contacts);
        
     });
@@ -46,7 +48,10 @@
                 <div class="story-terminal-glow"></div>
                 <div class="story-terminal-scanlines"></div>
             </div>
-            <div id="rolodex" class="story-contacts">Rolodex</div>
+            <div class="story-contacts">
+                <div class="story-contacts-header">Rolodex</div>
+                <div id="panelContent" class="story-contacts-content"></div>
+            </div>
         </div>
         <div class="story-controls">
             <div class="story-controls-container" style="display: flex; align-items: center; justify-content: center">

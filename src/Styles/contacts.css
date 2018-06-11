@@ -1,3 +1,45 @@
 .story-contacts {
     background-color: white;
+    overflow-y: scroll;
+    border-radius: 10px;
+}
+
+.story-contact-info {
+    border: 2px outset;
+    text-align: center;
+    width: 180px;
+    height: 100px;
+    margin-bottom: 1px;
+
+}
+
+.story-contacts-header{
+    font-family: cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background-color: rgb(35, 31, 32);
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    color: rgb(255,255,255,0.8);
+    box-shadow: black 0px 0px 6px 1px;
+}
+
+.story-contacts-content {
+    margin-top: 55px !important;
+}
+
+.story-contact-info-name {
+   font-family: Cambria;
+   margin-top: 20px;
+   font-size: 20px;
+}
+.story-contact-info-title {
+    font-size: 12px;
+}
+.story-contact-info-phone {
+    font-size: 12px;
 }

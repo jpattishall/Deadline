@@ -17,13 +17,8 @@
     <script src="Scripts/Managers/UI/ContactPanelManager.js"></script>
     <script type="text/javascript" src="Scripts/Objects/Terminal.js"></script>
     <script src="Scripts/Plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script>
-    $(document).ready(function(){
-       var contactPanelManager = new ContactPanelManager("panelContent");
-       contactPanelManager.loadContacts(Contacts);
-       
-    });
-    </script>
+    <script src="Scripts/Sources/Story.js"></script>
+    <script src="Scripts/App.js"></script>
 </head>
 
 <body>
@@ -33,7 +28,7 @@
             <div class="story-notes">
                 <div class="story-notes-header">Bloc*Notes</div>
                 <div class="story-notes-container">
-                    <div class="story-notes-note">Called Lyle Skyton; Immediately got voicemail.</div>    
+                    <div class="story-notes-note">Called Lyle Skyton; Immediately got voicemail.</div>
                     <div class="story-notes-note">Called Lyle Skyton; Immediately got voicemail.</div>
                     <div class="story-notes-note">Called Lyle Skyton; No pick up...</div>
                     <div class="story-notes-note">"Odd weather pattern in Gulf of Mexico" - Lyle</div>
@@ -55,43 +50,66 @@
         </div>
         <div class="story-controls">
             <div class="story-controls-container" style="display: flex; align-items: center; justify-content: center">
-                    <button id="clear-terminal" style="height: 50px; border-radius: 8px;">Clear Terminal</button>
-                    <button id="prompt-log-terminal" style="height: 50px; border-radius: 8px; margin: 0 16px;">Send message to Terminal</button>
-                    <button id="toggle-terminal-animation" style="height: 50px; border-radius: 8px">Toggle Terminal Animations</button>
+                <button id="clear-terminal" style="height: 50px; border-radius: 8px;">Clear Terminal</button>
+                <button id="prompt-log-terminal" style="height: 50px; border-radius: 8px; margin: 0 16px;">Send message to Terminal</button>
+                <button id="toggle-terminal-animation" style="height: 50px; border-radius: 8px">Toggle Terminal Animations</button>
             </div>
         </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', e => {
             {
-                let initConvo = [
-                    {message: 'Hello?', type: 'contact', typingSpeed: 1000/5},
-                    {message: 'How dark is the sky overhead?', type: 'player', typingSpeed: 1000/30},
-                    {message: 'I don\'t know. We\'ve gone into the basement, the building has been evacuated...', type: 'contact', typingSpeed: 1000/15, initialDelay: 200},
-                    {message: 'ERR: Call Disconnected! Ref #08419495021', type: 'system', initialDelay: 500, typingSpeed: 1000/80}
-                ];
-
-                let terminal = new Terminal({element: document.querySelector('.story-conversation')});
-
-                initConvo.forEach(msg => {
-                    terminal.write(msg);
-                });
-
-                // Temporary for Debugging:
-                document.querySelector('#clear-terminal').addEventListener('click', e => {
-                    terminal.clear();
-                });
-                document.querySelector('#prompt-log-terminal').addEventListener('click', e => {
-                    var prompt = window.prompt('Enter message to send to Terminal');
-                    terminal.write({message: prompt, type: 'player', typingSpeed: 1000/30});
-                });
-                document.querySelector('#toggle-terminal-animation').addEventListener('click', e => {
-                    ['.story-terminal-glow', '.story-terminal-scanlines', '.story-conversation'].forEach(selector => {
-                        document.querySelector(selector).classList.toggle('story-conversation--disable-animation');
-                    })
-                });
+                InitializePage();
             }
         })
+
+        function InitializePage() {
+            loadDemo();
+            StartGame();
+        }
+
+        function loadDemo() {
+            let initConvo = [
+                { message: 'Hello?', type: 'contact', typingSpeed: 1000 / 5 },
+                { message: 'How dark is the sky overhead?', type: 'player', typingSpeed: 1000 / 30 },
+                { message: 'I don\'t know. We\'ve gone into the basement, the building has been evacuated...', type: 'contact', typingSpeed: 1000 / 15, initialDelay: 200 },
+                { message: 'ERR: Call Disconnected! Ref #08419495021', type: 'system', initialDelay: 500, typingSpeed: 1000 / 80 }
+            ];
+
+            let terminal = new Terminal({ element: document.querySelector('.story-conversation') });
+
+            initConvo.forEach(msg => {
+                terminal.write(msg);
+            });
+
+            // Temporary for Debugging:
+            document.querySelector('#clear-terminal').addEventListener('click', e => {
+                terminal.clear();
+            });
+            document.querySelector('#prompt-log-terminal').addEventListener('click', e => {
+                var prompt = window.prompt('Enter message to send to Terminal');
+                terminal.write({ message: prompt, type: 'player', typingSpeed: 1000 / 30 });
+            });
+            document.querySelector('#toggle-terminal-animation').addEventListener('click', e => {
+                ['.story-terminal-glow', '.story-terminal-scanlines', '.story-conversation'].forEach(selector => {
+                    document.querySelector(selector).classList.toggle('story-conversation--disable-animation');
+                })
+            });
+        }
+
+        function StartGame() {
+            const terminal = new Terminal({ element: document.querySelector('.story-conversation') });
+            const contactPanelManager = new ContactPanelManager("panelContent");
+            const args = {
+                contactPanelManager: contactPanelManager,
+                contacts: Contacts,
+                story: Story,
+                terminal: terminal
+            };
+            const newGame = new Game(args);
+            newGame.start();
+        }
     </script>
 </body>
+
 </html>

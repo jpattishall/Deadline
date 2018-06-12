@@ -1,32 +1,10 @@
-import React from 'react'; 
+function Game(args){
+    var contactPanelManager = args.contactPanelManager;
+    var story = args.story;
+    var contacts = args.contacts;
+    var terminal = args.terminal;
 
-class App extends React.Component {
-    constructor() {
-        super();
-        this.state = { };
-    }
-
-    componentWillMount() {
-        store.subscribe(() => this.setState( store.getState() ));
-    }
-
-  render() {
-    const onClick = () => store.dispatch({type: 'TOGGLE'});
-    return (
-        <div>
-          <h1>Hello, World!</h1>
-          <div>
-            Learn Redux 
-            <input 
-                type="checkbox"
-                checked={!!this.state.checked}
-                onClick={onClick}
-            />
-          </div>
-          {
-            this.state.checked ? (<h2>Done!</h2>) : null
-        }   
-        </div>
-    );
-  }
+    this.start = function(){
+        contactPanelManager.loadContacts(contacts);
+    };
 }

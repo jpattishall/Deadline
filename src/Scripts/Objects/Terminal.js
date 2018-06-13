@@ -49,7 +49,13 @@ const Terminal = (() => {
             this.render(args.typingSpeed, args.initialDelay);
         }
         clear() {
-            this[_term].innerHTML = '';
+            this[_promise] = this[_promise].then(() => {
+                return new Promise(resolve => {
+                    // TODO: Make clearing the terminal more fancy...??
+                    let element = this[_term].innerHTML = '';
+                    resolve();
+                });
+            });
         }
     }
 })();

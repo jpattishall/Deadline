@@ -61,68 +61,59 @@
         </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', e => {
-            {
-                InitializePage();
-            }
-        })
-
-        function InitializePage() {
-            loadDemo();
-            StartGame();
-            bindUiFunctions();
-        }
-
-        function loadDemo() {
-            let initConvo = [
-                { message: 'Hello?', type: 'contact', typingSpeed: 1000 / 5 },
-                { message: 'How dark is the sky overhead?', type: 'player', typingSpeed: 1000 / 30 },
-                { message: 'I don\'t know. We\'ve gone into the basement, the building has been evacuated...', type: 'contact', typingSpeed: 1000 / 15, initialDelay: 200 },
-                { message: 'ERR: Call Disconnected! Ref #08419495021', type: 'system', initialDelay: 500, typingSpeed: 1000 / 80 }
-            ];
-
+        // Game scope
+        {
             let terminal = new Terminal({ element: document.querySelector('.story-conversation') });
+            let newGame;
 
-            initConvo.forEach(msg => {
-                terminal.write(msg);
+            document.addEventListener('DOMContentLoaded', e => {
+                InitializePage();
             });
 
+            function InitializePage() {
+                loadDemo();
+                StartGame();
+                bindUiFunctions();
+            }
 
-            // Temporary for Debugging:
-            // document.querySelector('#clear-terminal').addEventListener('click', e => {
-            //     terminal.clear();
-            // });
-            // document.querySelector('#prompt-log-terminal').addEventListener('click', e => {
-            //     var prompt = window.prompt('Enter message to send to Terminal');
-            //     terminal.write({ message: prompt, type: 'player', typingSpeed: 1000 / 30 });
-            // }); 
-            document.querySelector('#toggle-terminal-animation').addEventListener('click', e => {
-                ['.story-terminal-glow', '.story-terminal-scanlines', '.story-conversation'].forEach(selector => {
-                    document.querySelector(selector).classList.toggle('story-conversation--disable-animation');
-                })
-            });
-        }
-        var newGame;
-        function StartGame() {
-            const terminal = new Terminal({ element: document.querySelector('.story-conversation') });
-            const contactPanelManager = new ContactPanelManager("panelContent");
-            const args = {
-                contactPanelManager: contactPanelManager,
-                contacts: Contacts,
-                story: new Story(),
-                terminal: terminal
-            };
+            function loadDemo() {
+                let initConvo = [
+                    { message: 'Hello?', type: 'contact', typingSpeed: 1000 / 5 },
+                    { message: 'How dark is the sky overhead?', type: 'player', typingSpeed: 1000 / 30 },
+                    { message: 'I don\'t know. We\'ve gone into the basement, the building has been evacuated...', type: 'contact', typingSpeed: 1000 / 15, initialDelay: 200 },
+                    { message: 'ERR: Call Disconnected! Ref #08419495021', type: 'system', initialDelay: 500, typingSpeed: 1000 / 80 }
+                ];
+
+                initConvo.forEach(msg => {
+                    terminal.write(msg);
+                });
+
+                document.querySelector('#toggle-terminal-animation').addEventListener('click', e => {
+                    ['.story-terminal-glow', '.story-terminal-scanlines', '.story-conversation'].forEach(selector => {
+                        document.querySelector(selector).classList.toggle('story-conversation--disable-animation');
+                    })
+                });
+            }
+
+            function StartGame() {
+                const contactPanelManager = new ContactPanelManager("panelContent");
+                const args = {
+                    contactPanelManager: contactPanelManager,
+                    contacts: Contacts,
+                    story: new Story(),
+                    terminal: terminal
+                };
             
-            newGame = new Game(args);
-            newGame.start();
+                newGame = new Game(args);
+                newGame.start();
+            }
 
-
-        }
-        function bindUiFunctions(){
-            document.querySelector('#make-a-call').addEventListener('click', e => {
-                var prompt = window.prompt('Enter phone number:');
-                newGame.call(prompt);
-            });
+            function bindUiFunctions(){
+                document.querySelector('#make-a-call').addEventListener('click', e => {
+                    var prompt = window.prompt('Enter phone number:');
+                    newGame.call(prompt);
+                });
+            }
         }
     </script>
 </body>

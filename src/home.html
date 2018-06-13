@@ -50,9 +50,13 @@
         </div>
         <div class="story-controls">
             <div class="story-controls-container" style="display: flex; align-items: center; justify-content: center">
-                <button id="clear-terminal" style="height: 50px; border-radius: 8px;">Clear Terminal</button>
-                <button id="prompt-log-terminal" style="height: 50px; border-radius: 8px; margin: 0 16px;">Send message to Terminal</button>
+                <!-- <button id="clear-terminal" style="height: 50px; border-radius: 8px;">Clear Terminal</button>
+                <button id="prompt-log-terminal" style="height: 50px; border-radius: 8px; margin: 0 16px;">Send message to Terminal</button> -->
                 <button id="toggle-terminal-animation" style="height: 50px; border-radius: 8px">Toggle Terminal Animations</button>
+                <button id="make-a-call" style="height: 50px; border-radius: 8px">Phone</button>
+                <div id="conversation-options">
+
+                </div>
             </div>
         </div>
     </div>
@@ -66,6 +70,7 @@
         function InitializePage() {
             loadDemo();
             StartGame();
+            bindUiFunctions();
         }
 
         function loadDemo() {
@@ -82,32 +87,42 @@
                 terminal.write(msg);
             });
 
+
             // Temporary for Debugging:
-            document.querySelector('#clear-terminal').addEventListener('click', e => {
-                terminal.clear();
-            });
-            document.querySelector('#prompt-log-terminal').addEventListener('click', e => {
-                var prompt = window.prompt('Enter message to send to Terminal');
-                terminal.write({ message: prompt, type: 'player', typingSpeed: 1000 / 30 });
-            });
+            // document.querySelector('#clear-terminal').addEventListener('click', e => {
+            //     terminal.clear();
+            // });
+            // document.querySelector('#prompt-log-terminal').addEventListener('click', e => {
+            //     var prompt = window.prompt('Enter message to send to Terminal');
+            //     terminal.write({ message: prompt, type: 'player', typingSpeed: 1000 / 30 });
+            // }); 
             document.querySelector('#toggle-terminal-animation').addEventListener('click', e => {
                 ['.story-terminal-glow', '.story-terminal-scanlines', '.story-conversation'].forEach(selector => {
                     document.querySelector(selector).classList.toggle('story-conversation--disable-animation');
                 })
             });
         }
-
+        var newGame;
         function StartGame() {
             const terminal = new Terminal({ element: document.querySelector('.story-conversation') });
             const contactPanelManager = new ContactPanelManager("panelContent");
             const args = {
                 contactPanelManager: contactPanelManager,
                 contacts: Contacts,
-                story: Story,
+                story: new Story(),
                 terminal: terminal
             };
-            const newGame = new Game(args);
+            
+            newGame = new Game(args);
             newGame.start();
+
+
+        }
+        function bindUiFunctions(){
+            document.querySelector('#make-a-call').addEventListener('click', e => {
+                var prompt = window.prompt('Enter phone number:');
+                newGame.call(prompt);
+            });
         }
     </script>
 </body>
